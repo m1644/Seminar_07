@@ -1,0 +1,70 @@
+import random
+import string
+
+
+''' Задание_2
+✔ Напишите функцию, которая генерирует псевдоимена.
+✔ Имя должно начинаться с заглавной буквы, состоять из 4-7 букв, среди которых обязательно должны быть гласные.
+✔ Полученные имена сохраните в файл.
+'''
+
+# Пример_1 (eng)
+
+def generate_pseudonyms(num_names):
+    vowels = "aeiou"
+    consonants = "".join(set(string.ascii_lowercase) - set(vowels))
+
+    pseudonyms = []
+    for _ in range(num_names):
+        name_length = random.randint(4, 7)
+        name = random.choice(string.ascii_uppercase)
+        for _ in range(name_length - 1):
+            if len(name) % 2 == 0:
+                name += random.choice(consonants)
+            else:
+                name += random.choice(vowels)
+        pseudonyms.append(name)
+    return pseudonyms
+
+def save_pseudonyms_to_file(pseudonyms, filename):
+    with open(filename, 'w') as file:
+        for pseudonym in pseudonyms:
+            file.write(pseudonym + '\n')
+
+num_names = 10
+pseudonyms = generate_pseudonyms(num_names)
+filename = "pseudonyms.txt"
+save_pseudonyms_to_file(pseudonyms, filename)
+
+
+# Пример_2 (rus)
+'''
+def generate_pseudonyms(num_names):
+    vowels = 'аеёиоуыэюя'
+    consonants = 'бвгджзйклмнпрстфхцчшщ'
+    pseudonyms = []
+
+    for _ in range(num_names):
+        name_length = random.randint(4, 7)
+        name = random.choice(consonants).upper()
+        
+        for _ in range(name_length - 1):
+            if len(name) % 2 == 0:
+                name += random.choice(vowels)
+            else:
+                name += random.choice(consonants)
+        
+        pseudonyms.append(name)
+    
+    return pseudonyms
+
+def save_pseudonyms_to_file(pseudonyms, filename):
+    with open(filename, 'w', encoding='utf-8') as file:
+        for pseudonym in pseudonyms:
+            file.write(pseudonym + '\n')
+
+num_names = 10
+pseudonyms = generate_pseudonyms(num_names)
+filename = "pseudonyms.txt"
+save_pseudonyms_to_file(pseudonyms, filename)
+'''
